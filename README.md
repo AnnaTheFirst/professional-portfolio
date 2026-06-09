@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Anna Kelley Portfolio
 
-## Getting Started
+Professional UX portfolio site featuring the **Context-Aware Welcome Messages** case study for Mailchimp.
 
-First, run the development server:
+Built with Next.js App Router, TypeScript, and Tailwind CSS. Deploy-ready for Vercel.
+
+## Design system
+
+All visual decisions follow `design-system/anna-kelley-portfolio/MASTER.md` (generated via ui-ux-pro-max).
+
+- **Palette:** Monochrome (`#18181B`, `#FAFAFA`) + blue accent (`#2563EB`)
+- **Typography:** Archivo (headings) + Space Grotesk (body)
+- **Pattern:** Editorial long-form case study with scroll-triggered reveals
+
+## Run locally
 
 ```bash
+cd portfolio
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build for production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Deploy to Vercel
 
-To learn more about Next.js, take a look at the following resources:
+1. Push this `portfolio/` folder to a GitHub repository (or deploy from the monorepo root with **Root Directory** set to `portfolio`).
+2. Import the repo at [vercel.com/new](https://vercel.com/new).
+3. Vercel auto-detects Next.js — no custom build settings needed.
+4. Deploy. Subsequent pushes to `main` trigger automatic redeploys.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Path | Purpose |
+|------|---------|
+| `src/app/page.tsx` | Home page — name, positioning, featured project card |
+| `src/app/work/welcome-messages/page.tsx` | Full case study narrative |
+| `src/components/MessageExplorer.tsx` | Interactive segmentation demo (8 curated messages) |
+| `src/data/messages.ts` | Curated message data from the source CSV |
+| `public/images/` | Case study images and videos |
+| `design-system/anna-kelley-portfolio/MASTER.md` | Design system source of truth |
 
-## Deploy on Vercel
+## Editing copy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| What to update | File |
+|----------------|------|
+| Home page name & tagline | `src/app/page.tsx` |
+| Case study narrative sections | `src/app/work/welcome-messages/page.tsx` |
+| Message explorer examples | `src/data/messages.ts` |
+| Impact metrics | `impactMetrics` array in `src/app/work/welcome-messages/page.tsx` |
+| Process steps | `processSteps` array in same file |
+| Site metadata (title, description) | `src/app/layout.tsx` |
+| Contact placeholder | Footer in `src/app/page.tsx` |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Motion design notes
+
+- **Jakub Krehel (primary):** Scroll reveals (350ms, opacity + translateY, custom easing); message card crossfade on filter change
+- **Jhey Tompkins (secondary):** Staggered headline word reveal on case study hero (one hero moment)
+- **Emil Kowalski (selective):** No animation on keyboard focus; filter transitions kept subtle for occasional use
+- All animations respect `prefers-reduced-motion` globally in `globals.css` and per-component via Framer Motion's `useReducedMotion`
+
+## Assets
+
+Source materials live in the parent workspace `assets/` folder. Images and videos are copied to `public/images/` for Next.js static serving.
